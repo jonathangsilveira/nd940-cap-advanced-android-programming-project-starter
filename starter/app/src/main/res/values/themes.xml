@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme"/>
+    <style name="Theme.PoliticalPreparedness"/>
+    <style name="Theme.PoliticalPreparedness.Light"/>
+    <style name="Theme.PoliticalPreparedness.Light.DarkActionBar"
+        parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+</resources>
