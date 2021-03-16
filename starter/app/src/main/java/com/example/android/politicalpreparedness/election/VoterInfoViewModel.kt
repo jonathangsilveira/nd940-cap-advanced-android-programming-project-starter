@@ -12,23 +12,19 @@ import kotlinx.coroutines.launch
 
 class VoterInfoViewModel(private val repo: VoterInfoRepository) : ViewModel() {
 
-    //TODO: Add live data to hold voter info
     private val _voterInfo = MutableLiveData<VoterInfoResponse?>()
-    private val voterInfo: LiveData<VoterInfoResponse?>
+    val voterInfo: LiveData<VoterInfoResponse?>
         get() = _voterInfo
-
-    //TODO: Add var and methods to populate voter info
-
 
     //TODO: Add var and methods to support loading URLs
 
-    //TODO: Add var and methods to save and remove elections to local database
-    //TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
     private val _following = MutableLiveData<Boolean>()
     val following: LiveData<Boolean>
         get() = _following
 
-    fun load(electionId: Int, division: Division) {
+    fun load(args: VoterInfoFragmentArgs) {
+        val electionId: Int = args.argElectionId
+        val division: Division = args.argDivision
         viewModelScope.launch {
             loadVoterInfo(division, electionId)
             loadFollowState(electionId)
@@ -39,8 +35,7 @@ class VoterInfoViewModel(private val repo: VoterInfoRepository) : ViewModel() {
         val address = "${division.state}, ${division.country}"
         when (val result = repo.getVoteInfo(address = address, electionId = electionId.toLong())) {
             is Result.Success -> _voterInfo.value = result.data
-            is Result.Error -> {
-            }
+            is Result.Error -> {  }
         }
     }
 
@@ -51,19 +46,25 @@ class VoterInfoViewModel(private val repo: VoterInfoRepository) : ViewModel() {
         }
     }
 
-    fun follow() {
-        viewModelScope.launch {
-            val voterInfo = _voterInfo.value ?: return@launch
-            repo.follow(voterInfo.election)
-            _following.value = true
-        }
+    private suspend fun follow() {
+        val voterInfo = _voterInfo.value ?: return
+        repo.follow(voterInfo.election)
+        _following.value = true
     }
 
-    fun unfollow() {
+    private suspend fun unfollow() {
+        val voterInfo = _voterInfo.value ?: return
+        repo.unfollow(voterInfo.election.id)
+        _following.value = false
+    }
+
+    fun toggleFollow() {
         viewModelScope.launch {
-            val voterInfo = _voterInfo.value ?: return@launch
-            repo.unfollow(voterInfo.election.id)
-            _following.value = false
+            val following = following.value ?: false
+            if (following)
+                unfollow()
+            else
+                follow()
         }
     }
 

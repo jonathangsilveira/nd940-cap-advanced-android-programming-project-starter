@@ -20,23 +20,19 @@ class VoterInfoFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
         val binding = FragmentVoterInfoBinding.inflate(inflater)
-        //TODO: Add binding values
         binding.lifecycleOwner = this
         binding.viewModel = _viewModel
 
-        //TODO: Populate voter info -- hide views without provided data.
-        /**
-        Hint: You will need to ensure proper data is provided from previous fragment.
-        */
-
+        val args = VoterInfoFragmentArgs.fromBundle(requireArguments())
+        _viewModel.load(args)
 
         //TODO: Handle loading of URLs
 
-        //TODO: Handle save button UI state
-        //TODO: cont'd Handle save button clicks
         return binding.root
     }
 
-    //TODO: Create method to load URL intents
+    private fun openUrl(url: String?) {
+
+    }
 
 }

@@ -4,6 +4,9 @@
     <string name="upcoming_elections">Upcoming Elections</string>
     <string name="representatives">Representatives</string>
     <string name="saved_elections">Saved Elections</string>
+    <string name="election_information">Election Information</string>
+    <string name="unfollow_election">Unfollow Election</string>
+    <string name="follow_election">Follow Election</string>
 
     <!-- TODO: Add necessary string values -->
 

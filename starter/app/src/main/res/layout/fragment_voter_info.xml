@@ -16,14 +16,14 @@
         android:layout_height="match_parent"
         tools:context="com.example.android.politicalpreparedness.MainActivity">
 
-        <!-- TODO: Add title to toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/election_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/default_padding"
             android:singleLine="true"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:electionName="@{viewModel.voterInfo}" />
 
         <!-- TODO: Add visual styling -->
         <TextView
@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_padding"
             app:layout_constraintTop_toBottomOf="@id/election_name"
+            app:electionDate="@{viewModel.voterInfo}"
             tools:text="12 November 2055" />
 
         <!-- TODO: Add visual styling and content -->
@@ -39,6 +40,8 @@
             android:id="@+id/state_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/election_information"
+            android:textAppearance="@style/TextAppearance.PoliticalPreparedness.Title"
             app:layout_constraintTop_toBottomOf="@id/election_date"
             app:layout_constraintStart_toStartOf="@id/election_date" />
 
@@ -49,7 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/state_header"
-            app:layout_constraintStart_toStartOf="@id/election_date" />
+            app:layout_constraintStart_toStartOf="@id/election_date"
+            app:voterInfoVotingLocation="@{viewModel.voterInfo}"/>
 
         <!-- TODO: Add click binding to open web URL -->
         <!-- TODO: Add visual styling and content -->
@@ -58,7 +62,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/state_locations"
-            app:layout_constraintStart_toStartOf="@id/election_date" />
+            app:layout_constraintStart_toStartOf="@id/election_date"
+            app:voterInfoBallotInfo="@{viewModel.voterInfo}"/>
 
         <androidx.constraintlayout.widget.Group
             android:id="@+id/address_group"
@@ -74,15 +79,29 @@
             app:layout_constraintTop_toBottomOf="@id/state_ballot"
             app:layout_constraintStart_toStartOf="@id/election_date" />
 
-        <!-- TODO: Add data binding -->
         <TextView
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/state_correspondence_header"
-            app:layout_constraintStart_toStartOf="@id/election_date" />
+            app:layout_constraintStart_toStartOf="@id/election_date"
+            app:voterInfoAddress="@{viewModel.voterInfo}"/>
 
-        <!-- TODO: Add button to save election to Room -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/follow_unfollow_button"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/default_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:isFollowing="@{viewModel.following}"
+            tools:text="@string/follow_election"
+            android:onClick="@{() -> viewModel.toggleFollow()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
