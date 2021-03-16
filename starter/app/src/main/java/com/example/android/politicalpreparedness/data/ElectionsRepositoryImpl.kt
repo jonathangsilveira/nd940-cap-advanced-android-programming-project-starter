@@ -29,24 +29,6 @@ class ElectionsRepositoryImpl(
         }
     }
 
-    override suspend fun follow(election: Election): Result<Unit> = withContext(ioDispatcher) {
-        try {
-            localDataSource.save(election)
-            Result.Success(Unit)
-        } catch (e: Exception) {
-            Result.Error(message = e.message)
-        }
-    }
-
-    override suspend fun unfollow(id: Int): Result<Unit> = withContext(ioDispatcher) {
-        try {
-            localDataSource.delete(id)
-            Result.Success(Unit)
-        } catch (e: Exception) {
-            Result.Error(message = e.message)
-        }
-    }
-
     override suspend fun clear(): Result<Unit> {
         return try {
             localDataSource.deleteAll()
