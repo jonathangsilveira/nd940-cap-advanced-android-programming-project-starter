@@ -6,7 +6,7 @@ import com.example.android.politicalpreparedness.data.VoterInfoRepository
 
 class VoterInfoViewModelFactory(private val repo: VoterInfoRepository): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ElectionsViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(VoterInfoViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return VoterInfoViewModel(repo) as T
         }
