@@ -2,9 +2,11 @@ package com.example.android.politicalpreparedness.election.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.data.network.models.Election
 import com.example.android.politicalpreparedness.databinding.ListItemElectionBinding
 

@@ -1,5 +1,6 @@
 package com.example.android.politicalpreparedness.election
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.android.politicalpreparedness.data.ElectionsRepository
 import com.example.android.politicalpreparedness.data.Result
@@ -28,7 +29,10 @@ class ElectionsViewModel(private val repository: ElectionsRepository): ViewModel
         viewModelScope.launch {
             _loading.value = true
             when (val result = repository.upcomingElections()) {
-                is Result.Success -> _upcoming.value = result.data
+                is Result.Success -> {
+                    Log.d(ElectionsViewModel::class.java.simpleName, "fetchUpcoming: ${result.data}")
+                    _upcoming.value = result.data
+                }
                 is Result.Error -> _error.value = result.message
             }
             _loading.value = false
@@ -37,12 +41,10 @@ class ElectionsViewModel(private val repository: ElectionsRepository): ViewModel
 
     fun loadSaved() {
         viewModelScope.launch {
-            _loading.value = true
             when (val result = repository.savedElections()) {
                 is Result.Success -> _saved.value = result.data
                 is Result.Error -> _error.value = result.message
             }
-            _loading.value = false
         }
     }
 
