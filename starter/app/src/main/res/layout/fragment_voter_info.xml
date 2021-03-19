@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/default_padding"
             android:singleLine="true"
-            app:electionName="@{viewModel.voterInfo}"
+            app:title="@{viewModel.voterInfo.election.name}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- TODO: Add visual styling -->
