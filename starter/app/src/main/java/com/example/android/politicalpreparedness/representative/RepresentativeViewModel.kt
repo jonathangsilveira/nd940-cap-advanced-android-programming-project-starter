@@ -65,7 +65,7 @@ class RepresentativeViewModel(private val repo: RepresentativeRepository): ViewM
 
     class Factory(private val repo: RepresentativeRepository): ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(ElectionsViewModel::class.java)) {
+            if (modelClass.isAssignableFrom(RepresentativeViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return RepresentativeViewModel(repo) as T
             }
