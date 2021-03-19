@@ -6,4 +6,5 @@
         <item name="android:textSize">@dimen/text_size_large</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
+    <style name="TextAppearance.PoliticalPreparedness.Label" parent="TextAppearance.MaterialComponents.Subtitle1"/>
 </resources>

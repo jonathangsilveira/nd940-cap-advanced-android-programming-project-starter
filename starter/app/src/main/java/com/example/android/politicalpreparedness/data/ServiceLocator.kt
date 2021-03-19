@@ -1,11 +1,9 @@
 package com.example.android.politicalpreparedness.data
 
-import android.app.RemoteAction
 import android.content.Context
 import com.example.android.politicalpreparedness.data.database.ElectionDatabase
 import com.example.android.politicalpreparedness.data.database.LocalElectionsDataSource
 import com.example.android.politicalpreparedness.data.network.CivicsApi
-import com.example.android.politicalpreparedness.data.network.CivicsApiService
 import com.example.android.politicalpreparedness.data.network.RemoteElectionsDataSource
 import com.example.android.politicalpreparedness.data.network.RemoteVoterInfoDataSource
 
@@ -39,6 +37,13 @@ object ServiceLocator {
         return VoterInfoRepositoryImpl(
                 LocalElectionsDataSource(dao),
                 RemoteVoterInfoDataSource(webservice)
+        )
+    }
+
+    fun provideRepresentativesRepository(): RepresentativeRepository {
+        val webservice = CivicsApi.retrofitService
+        return RepresentativesRepositoryImpl(
+                RemoteRepresentativeDataSource(webservice)
         )
     }
 
