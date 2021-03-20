@@ -23,8 +23,5 @@
     <string name="voting_location">Voting Location</string>
     <string name="ballot_information">Ballot Information</string>
     <string name="mailing_address">Mailing Address</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
 </resources>

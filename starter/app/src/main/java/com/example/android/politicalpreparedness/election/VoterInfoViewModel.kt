@@ -12,37 +12,65 @@ import kotlinx.coroutines.launch
 
 class VoterInfoViewModel(private val repo: VoterInfoRepository) : ViewModel() {
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean>
+        get() = _loading
+
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?>
+        get() = _error
+
     private val _voterInfo = MutableLiveData<VoterInfoResponse?>()
     val voterInfo: LiveData<VoterInfoResponse?>
         get() = _voterInfo
 
-    //TODO: Add var and methods to support loading URLs
+    private val _url = MutableLiveData<String?>()
+    val url: LiveData<String?>
+        get() = _url
 
     private val _following = MutableLiveData<Boolean>()
     val following: LiveData<Boolean>
         get() = _following
 
+    private val _votingLocationUrl = MutableLiveData<String?>()
+    val votingLocationUrl: LiveData<String?>
+        get() = _votingLocationUrl
+
+
+    private val _ballotInfoUrl = MutableLiveData<String?>()
+    val ballotInfoUrl: LiveData<String?>
+        get() = _ballotInfoUrl
+
     fun load(args: VoterInfoFragmentArgs) {
         val electionId: Int = args.argElectionId
         val division: Division = args.argDivision
-        viewModelScope.launch {
-            loadVoterInfo(division, electionId)
-            loadFollowState(electionId)
-        }
+        loadVoterInfo(division, electionId)
+        loadFollowState(electionId)
     }
 
-    private suspend fun loadVoterInfo(division: Division, electionId: Int) {
+    private fun loadVoterInfo(division: Division, electionId: Int) {
         val address = "${division.state}, ${division.country}"
-        when (val result = repo.getVoteInfo(address = address, electionId = electionId.toLong())) {
-            is Result.Success -> _voterInfo.value = result.data
-            is Result.Error -> {  }
+        viewModelScope.launch {
+            _loading.value = true
+            when (val result = repo.getVoteInfo(address = address, electionId = electionId.toLong())) {
+                is Result.Success -> {
+                    val data = result.data
+                    _voterInfo.value = data
+                    _votingLocationUrl.value = data.votingLocationUrl()
+                    _ballotInfoUrl.value = data.ballotInfoUrl()
+                }
+                is Result.Error -> { _error.value = result.message }
+            }
+            _loading.value = false
         }
     }
 
-    private suspend fun loadFollowState(electionId: Int) {
-        when (val result = repo.isFollowing(electionId)) {
-            is Result.Success -> _following.value = result.data
-            is Result.Error -> _following.value = false
+    private fun loadFollowState(electionId: Int) {
+        viewModelScope.launch {
+            when (val result = repo.isFollowing(electionId)) {
+                is Result.Success -> _following.value = result.data
+                is Result.Error -> _following.value = false
+            }
         }
     }
 
@@ -68,8 +96,24 @@ class VoterInfoViewModel(private val repo: VoterInfoRepository) : ViewModel() {
         }
     }
 
-    /**
-     * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.
-     */
+    fun openBallotInformation() {
+        _url.value = _voterInfo.value?.ballotInfoUrl()
+    }
+
+    fun openVotingLocation() {
+        _url.value = _voterInfo.value?.votingLocationUrl()
+    }
+
+    private fun VoterInfoResponse.votingLocationUrl(): String? {
+        return this.state?.firstOrNull()
+                ?.electionAdministrationBody
+                ?.votingLocationFinderUrl
+    }
+
+    private fun VoterInfoResponse.ballotInfoUrl(): String? {
+        return this.state?.firstOrNull()
+                ?.electionAdministrationBody
+                ?.ballotInfoUrl
+    }
 
 }

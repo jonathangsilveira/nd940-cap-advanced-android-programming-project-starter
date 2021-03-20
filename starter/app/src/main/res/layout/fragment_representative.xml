@@ -4,7 +4,6 @@
     xmlns:motion="http://schemas.android.com/tools"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Add data binding node -->
     <data>
 
         <variable
@@ -123,7 +122,6 @@
                 app:states="@{viewModel.states}"
                 app:stateValue="@{viewModel.address.state}" />
 
-            <!-- TODO: Add visual styling and content -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_zip"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -148,7 +146,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- TODO: Add visual styling and label -->
             <com.google.android.material.button.MaterialButton
                 style="@style/Widget.MaterialComponents.Button"
                 android:id="@+id/button_search"
@@ -183,7 +180,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_section">
 
-            <!-- TODO: Add visual styling and content -->
             <TextView
                 android:id="@+id/representative_title"
                 android:layout_width="0dp"
@@ -197,7 +193,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- TODO: Add Representatives RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_representatives"
                 android:layout_width="match_parent"
@@ -208,18 +203,6 @@
                 app:layout_constraintTop_toBottomOf="@id/representative_title"
                 motion:itemCount="5"
                 motion:listitem="@layout/list_item_representative"/>
-
-            <!-- TODO: Add visual styling and content -->
-            <!--<TextView
-                android:id="@+id/list_placeholder"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:visibility="gone"
-                motion:visibilityMode="ignore"
-                app:layout_constraintTop_toBottomOf="@id/representative_title"
-                app:layout_constraintBottom_toBottomOf="parent" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

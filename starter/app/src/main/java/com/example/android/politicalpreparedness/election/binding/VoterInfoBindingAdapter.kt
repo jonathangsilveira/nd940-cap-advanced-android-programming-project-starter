@@ -52,25 +52,22 @@ fun bindVoterInfoAddress(view: TextView, data: VoterInfoResponse?) {
 }
 
 @BindingAdapter("voterInfoVotingLocation")
-fun bindVoterInfoVotingLocation(view: TextView, data: VoterInfoResponse?) {
-    val votingLocationFinderUrl = data?.state?.firstOrNull()
-            ?.electionAdministrationBody
-            ?.votingLocationFinderUrl
-    view.visibility = if (votingLocationFinderUrl.isNullOrEmpty())
-        View.GONE
-    else
-        View.VISIBLE
-    view.text = votingLocationFinderUrl
+fun bindVoterInfoVotingLocation(view: TextView, value: String?) {
+    val hasValue = !value.isNullOrEmpty()
+    view.visibility = if (hasValue) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("voterInfoBallotInfo")
-fun bindVoterInfoBallotInfo(view: TextView, data: VoterInfoResponse?) {
-    val ballotInfoUrl = data?.state?.firstOrNull()
-            ?.electionAdministrationBody
-            ?.ballotInfoUrl
-    view.visibility = if (ballotInfoUrl.isNullOrEmpty())
+fun bindVoterInfoBallotInfo(view: TextView, value: String?) {
+    val hasValue = !value.isNullOrEmpty()
+    view.visibility = if (hasValue) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("voterInfoAddressVisibility")
+fun bindVoterInfoAddressVisibility(view: View, data: VoterInfoResponse?) {
+    val election = data?.election
+    view.visibility = if (election?.name.isNullOrEmpty())
         View.GONE
     else
         View.VISIBLE
-    view.text = ballotInfoUrl
 }

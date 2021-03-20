@@ -9,41 +9,36 @@
             type="com.example.android.politicalpreparedness.data.network.models.Election" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?attr/listPreferredItemHeightSmall"
-        android:background="?attr/selectableItemBackground">
+        android:background="?attr/selectableItemBackground"
+        android:minHeight="?attr/listPreferredItemHeight"
+        android:orientation="vertical"
+    >
 
         <TextView
             android:id="@+id/election_name_text"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_padding"
             android:layout_marginTop="@dimen/default_padding"
             android:layout_marginEnd="@dimen/default_padding"
             android:text="@{election.name}"
             android:textAppearance="@style/TextAppearance.PoliticalPreparedness.Label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="Election name"/>
 
         <TextView
             android:id="@+id/election_date_text"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_padding"
             android:layout_marginTop="@dimen/view_margin"
             android:layout_marginEnd="@dimen/default_padding"
             android:layout_marginBottom="@dimen/default_padding"
             android:text="@{election.electionDay.toString()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/election_name_text"
             tools:text="Election date"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>
