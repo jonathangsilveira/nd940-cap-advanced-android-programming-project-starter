@@ -3,10 +3,12 @@ package com.example.android.politicalpreparedness.representative.adapter
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -43,7 +45,11 @@ class RepresentativeViewHolder(val binding: ListItemRepresentativeBinding): Recy
     companion object {
         fun from(parent: ViewGroup): RepresentativeViewHolder {
             val inflater = LayoutInflater.from(parent.context)
-            val binding = ListItemRepresentativeBinding.inflate(inflater)
+            val binding = ListItemRepresentativeBinding.inflate(
+                    inflater,
+                    parent,
+                    false
+            )
             return RepresentativeViewHolder(binding)
         }
     }

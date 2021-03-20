@@ -197,12 +197,12 @@
                 android:id="@+id/list_representatives"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:textAlignment="center"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/representative_title"
+                app:representatives="@{viewModel.representatives}"
                 motion:itemCount="5"
-                motion:listitem="@layout/list_item_representative"/>
+                motion:listitem="@layout/list_item_representative" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,6 +10,10 @@ import kotlinx.coroutines.launch
 
 class RepresentativeViewModel(private val repo: RepresentativeRepository): ViewModel() {
 
+    private val _error = MutableLiveData<String?>()
+    val error: LiveData<String?>
+        get() = _error
+
     private val _address = MutableLiveData<Address>()
     val address: LiveData<Address>
         get() = _address
@@ -57,7 +61,9 @@ class RepresentativeViewModel(private val repo: RepresentativeRepository): ViewM
     private fun loadRepresentatives(address: Address) {
         viewModelScope.launch {
             when (val result = repo.getRepresentatives(address)) {
-                is Result.Success -> _representatives.value = result.data
+                is Result.Success -> {
+                    _representatives.value = result.data
+                }
                 is Result.Error -> {}
             }
         }

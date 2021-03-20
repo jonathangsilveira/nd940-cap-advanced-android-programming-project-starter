@@ -20,6 +20,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.android.politicalpreparedness.BuildConfig
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.data.ServiceLocator
 import com.example.android.politicalpreparedness.data.network.models.Address
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
@@ -85,6 +86,11 @@ class DetailFragment : Fragment() {
             checkPermissions()
         }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        _viewModel.error.observe(viewLifecycleOwner, ::onError)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -260,5 +266,11 @@ class DetailFragment : Fragment() {
     }
 
     private fun permissionRequestCancelled(grantResults: IntArray) = grantResults.isEmpty()
+
+    private fun onError(message: String?) {
+        Snackbar.make(binding.root, message.orEmpty(), Snackbar.LENGTH_INDEFINITE)
+                .setAction(R.string.ok) {}
+                .show()
+    }
 
 }
