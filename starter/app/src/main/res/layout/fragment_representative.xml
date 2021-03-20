@@ -203,8 +203,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/representative_title"
                 app:representatives="@{viewModel.representatives}"
                 motion:itemCount="5"
-                motion:listitem="@layout/list_item_representative"
-                android:background="@color/colorAccent"/>
+                motion:listitem="@layout/list_item_representative"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
