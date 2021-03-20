@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- TODO: Add necessary styles -->
+    <style name="Widget" />
+    <style name="Widget.PoliticalPreparedness" />
+    <style name="Widget.PoliticalPreparedness.TextView" parent="Widget.MaterialComponents.TextView"/>
+    <style name="Widget.PoliticalPreparedness.TextView.Link" >
+        <item name="android:minHeight">?attr/listPreferredItemHeightSmall</item>
+        <item name="android:textAppearance">@style/TextAppearance.PoliticalPreparedness.Link</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+    <style name="Widget.PoliticalPreparedness.Toolbar"
+        parent="Widget.MaterialComponents.Toolbar.Primary"/>
+    <style name="Widget.PoliticalPreparedness.Toolbar.Sub">
+        <item name="android:background">?attr/colorPrimaryDark</item>
+    </style>
 
 </resources>
