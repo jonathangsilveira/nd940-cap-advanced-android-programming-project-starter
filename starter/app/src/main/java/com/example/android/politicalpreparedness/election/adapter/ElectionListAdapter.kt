@@ -36,7 +36,12 @@ class ElectionViewHolder(private var binding: ListItemElectionBinding):
     companion object {
         fun from(parent: ViewGroup): ElectionViewHolder {
             val inflater = LayoutInflater.from(parent.context)
-            val binding = ListItemElectionBinding.inflate(inflater)
+            val binding = DataBindingUtil.inflate<ListItemElectionBinding>(
+                    inflater,
+                    R.layout.list_item_election,
+                    parent,
+                    false
+            )
             return ElectionViewHolder(binding)
         }
     }
